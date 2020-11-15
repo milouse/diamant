@@ -6,6 +6,7 @@ require 'English'
 require 'openssl'
 require 'fileutils'
 
+require 'net/gemini/request'
 require 'uri/gemini'
 
 module Diamant
@@ -28,27 +29,22 @@ module Diamant
       rescue Interrupt
         break
       end
-
+    ensure
       ssl_serv.shutdown
     end
 
     private
 
     def handle_client(client)
-      # Read up to 1026 bytes:
-      # - 1024 bytes max for the URL
-      # - 2 bytes for <CR><LF>
-      str = client.gets($INPUT_RECORD_SEPARATOR, 1026)
-      m = /\A(.*)\r\n\z/.match(str)
-      if m.nil?
-        @logger.warn "Malformed request: #{str.dump}"
+      begin
+        r = Net::GeminiRequest.read_new(client)
+      rescue Net::GeminiBadRequest
         client.puts "59\r\n"
         return
       end
-      uri = URI(m[1])
-      @logger.info "Received #{uri}"
+      @logger.info "Received #{r.uri}"
       client.puts "20 text/gemini\r\n"
-      client.puts "I got #{uri.path}"
+      client.puts "I got #{r.path}"
     end
 
     def ssl_context
