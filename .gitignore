@@ -1,3 +1,4 @@
 .ruby-gemset
 cert.pem
 key.rsa
+diamant-*.gem
