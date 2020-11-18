@@ -53,6 +53,8 @@ module Diamant
     end
 
     def route(path)
+      # Avoid answer code 50 for domain name only request
+      path = '/index.gmi' if path == ''
       file_path = [@public_path, path]
       file_path << 'index.gmi' if path.end_with?('/')
       route = file_path.join
