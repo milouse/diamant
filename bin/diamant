@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'diamant'
+require 'diamant/cert_generator'
 require 'optparse'
 
 options = { hostname: '127.0.0.1', port: 1965 }
@@ -13,8 +14,13 @@ OptionParser.new do |parser| # rubocop:disable Metrics/BlockLength
   parser.separator 'Commands'
 
   parser.separator <<~COMMANDSHELP
-    serve [ public_path ]  Serve static files from the given public_path.
+    serve [ public_path ]  Serves static files from the given public_path.
                            (defaults to ./public_gmi)
+
+    generate_tls_cert [ hostname ]
+                           Generates a new self-signed certificate for the
+                           given hostname and its related private key.
+                           (defaults to localhost)
 
     If no command is given, or if the command is not recognized, the given
     string is taken as a public_path to serve from.  That is:
@@ -69,6 +75,9 @@ end.parse!
 
 command = ARGV.shift
 case command
+when 'generate_tls_cert'
+  Diamant::CertGenerator.new(ARGV[0]).write
+  exit
 when 'serve'
   options[:public_path] = ARGV[0]
 else

@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.email       = 'etienne@depar.is'
   s.files       = ['lib/diamant.rb',
                    'lib/diamant/version.rb',
+                   'lib/diamant/cert_generator.rb',
                    # Others
                    'LICENSE']
   s.executables = ['diamant']

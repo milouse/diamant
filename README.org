@@ -22,12 +22,20 @@ global ruby installation too.
   gem install diamant
 #+end_src
 
-Then you need to a generate self-signed TLS certificate and private key. For
-example, if you have OpenSSL 1.1 installed, you can use the following command,
-by replacing the example hostname ~myhostname.com~ by the one you would like
-to use:
+Then you need to a generate self-signed TLS certificate and private key. In
+the following example, remember to replace the example hostname
+~myhostname.com~ by the one you would like to use.
 
-#+caption: TLS certificate and private key creation
+Diamant provides a tool to create these certificate and key:
+
+#+caption: TLS certificate and private key creation with Diamant
+#+begin_src shell
+  diamant generate_tls_cert myhostname.com
+#+end_src
+
+You can also use the OpenSSL command if you prefer:
+
+#+caption: TLS certificate and private key creation with OpenSSL
 #+begin_src shell
   openssl req -x509 -newkey rsa:4096 -keyout key.rsa -out cert.pem
       -days 3650 -nodes -subj "/CN=myhostname.com"
