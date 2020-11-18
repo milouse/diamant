@@ -1,0 +1,65 @@
+#+title: Diamant Gemini Server
+#+subtitle: A simple Gemini server for static files.
+#+author: Étienne Deparis
+#+language: en
+
+Diamant is a server for the [[https://gemini.circumlunar.space/][Gemini network protocol]], built in Ruby. Diamant
+has very few features, and can only serve static files.
+
+Internally, it uses the OpenSSL library to handle the TLS sessions, and the
+Ruby ~Thread~ implementation to handle concurrent requests.
+
+* Installation and setup
+
+Diamant is a [[https://rubygems.org/][Ruby gem]]. You need a working Ruby environment to use it. We
+recommand you to use [[https://rvm.io][RVM]] and a specific gemset. However it will works with a
+global ruby installation too.
+
+#+caption: Installation procedure with RVM
+#+begin_src shell
+  rvm get latest
+  rvm use ruby-2.7.2@diamant --create
+  gem install diamant
+#+end_src
+
+Then you need to a generate self-signed TLS certificate and private key. For
+example, if you have OpenSSL 1.1 installed, you can use the following command,
+by replacing the example hostname ~myhostname.com~ by the one you would like
+to use:like the
+
+#+caption: TLS certificate and private key creation
+#+begin_src shell
+  openssl req -x509 -newkey rsa:4096 -keyout key.rsa -out cert.pem
+      -days 3650 -nodes -subj "/CN=myhostname.com"
+#+end_src
+
+Finally, you should create a folder to store your static files to serve:
+
+#+caption: Creation of the first Gemini files
+#+begin_src shell
+  mkdir public_gmi
+  echo 'Hello World!' > public_gmi/index.gmi
+#+end_src
+
+* Run the server
+
+With all the default options, runing the server is as simple as:
+
+#+caption: Running Diamant with default options
+#+begin_src shell
+  diamant
+#+end_src
+
+However, you may want to use some other options:
+
+#+caption: Running Diamant with some other options
+#+begin_src shell
+  diamant --public-path ~/my_gemini_site -b 0.0.0.0
+#+end_src
+
+To see all possible options, just enter the following command:
+
+#+caption: Access Diamant help
+#+begin_src shell
+  diamant --help
+#+end_src
