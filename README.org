@@ -25,7 +25,7 @@ global ruby installation too.
 Then you need to a generate self-signed TLS certificate and private key. For
 example, if you have OpenSSL 1.1 installed, you can use the following command,
 by replacing the example hostname ~myhostname.com~ by the one you would like
-to use:like the
+to use:
 
 #+caption: TLS certificate and private key creation
 #+begin_src shell
