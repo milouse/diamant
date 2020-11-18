@@ -49,7 +49,7 @@ GEM
     rubocop-rspec (1.44.1)
       rubocop (~> 0.87)
       rubocop-ast (>= 0.7.1)
-    ruby-net-text (0.0.1)
+    ruby-net-text (0.0.2)
     ruby-progressbar (1.10.1)
     simplecov (0.19.1)
       docile (~> 1.1)
