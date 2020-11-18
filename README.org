@@ -51,6 +51,8 @@ Finally, you should create a folder to store your static files to serve:
 
 * Run the server
 
+** Basic way
+
 With all the default options, runing the server is as simple as:
 
 #+caption: Running Diamant with default options
@@ -70,4 +72,29 @@ To see all possible options, just enter the following command:
 #+caption: Access Diamant help
 #+begin_src shell
   diamant --help
+#+end_src
+
+** As a systemd service
+
+You can inspire yourself from the following service example file:
+
+#+caption: systemd service file example for Diamant
+#+begin_src conf
+  [Unit]
+  Description=Control Diamant Gemini Server
+  After=network.target
+
+  [Service]
+  Type=simple
+  User=gemini
+  Group=gemini
+  Environment="PATH=/home/gemini/.rvm/gems/ruby-2.7.2@diamant/bin:/home/gemini/.rvm/gems/ruby-2.7.2@global/bin:/home/gemini/.rvm/rubies/ruby-2.7.2/bin:/home/gemini/.rvm/bin:/usr/local/bin:/usr/bin:/bin"
+  Environment="GEM_HOME=/home/gemini/.rvm/gems/ruby-2.7.2@diamant"
+  Environment="GEM_PATH=/home/gemini/.rvm/gems/ruby-2.7.2@diamant:/home/gemini/.rvm/gems/ruby-2.7.2@global"
+  WorkingDirectory=/home/gemini
+  ExecStart=/home/gemini/.rvm/gems/ruby-2.7.2@diamant/bin/diamant -b 0.0.0.0
+  KillMode=control-group
+
+  [Install]
+  WantedBy=multi-user.target
 #+end_src
