@@ -10,6 +10,7 @@ require 'net/gemini/request'
 require 'uri/gemini'
 
 require 'diamant/version'
+require 'diamant/mimetype'
 
 module Diamant
   # Runs the server request/answer loop.
@@ -52,6 +53,14 @@ module Diamant
       end
     end
 
+    def build_response(route)
+      info = Diamant::MimeType.new(route)
+      answer = IO.readlines route, chomp: true
+      answer.prepend "20 #{info.content_type}"
+    rescue Diamant::MimeError
+      ['50 Not a supported file!']
+    end
+
     def route(path)
       # Avoid answer code 50 for domain name only request
       path = '/index.gmi' if path == ''
@@ -59,9 +68,7 @@ module Diamant
       file_path << 'index.gmi' if path.end_with?('/')
       route = file_path.join
       return ['51 Not found!'] unless File.exist?(route)
-      return ['50 Not a gemini file!'] unless route.end_with?('.gmi')
-      answer = IO.readlines route, chomp: true
-      answer.prepend '20 text/gemini'
+      build_response route
     end
 
     def ssl_context

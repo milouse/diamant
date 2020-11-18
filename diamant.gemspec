@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.files       = ['lib/diamant.rb',
                    'lib/diamant/version.rb',
                    'lib/diamant/cert_generator.rb',
+                   'lib/diamant/mimetype.rb',
                    # Others
                    'LICENSE']
   s.executables = ['diamant']
