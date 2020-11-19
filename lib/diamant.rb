@@ -39,21 +39,39 @@ module Diamant
 
     private
 
-    def handle_client(client)
-      begin
-        r = Net::GeminiRequest.read_new(client)
-        answer = route(r.path)
-        uri = r.uri
-      rescue Net::GeminiBadRequest
-        answer = ["59\r\n"]
-        uri = nil
+    def reject_request?(sock, current_load)
+      # Accept only 10 thread with no restriction
+      return false if current_load < 11
+      # Seppuku
+      raise 'Server is under heavy load' if current_load > 1965
+      if current_load > 42
+        @logger.warn '41 - Too much threads...'
+        sock.puts "41 See you soon...\r\n"
+        return true
       end
-      log_line = [client.peeraddr[3], answer[0]]
+      # Please wait a little
+      @logger.warn '44 5 - Too much threads...'
+      sock.puts "44 5\r\n"
+      true
+    end
+
+    def handle_client(client)
+      current_load = Thread.list.length - 1
+      return if reject_request?(client, current_load)
+      uri, answer = read_file(client)
+      log_line = [current_load, client.peeraddr[3], answer[0]]
       log_line << uri if uri
       @logger.info log_line.join(' - ')
       answer.each do |line|
         client.puts "#{line}\r\n"
       end
+    end
+
+    def read_file(client)
+      r = Net::GeminiRequest.read_new(client)
+      [r.uri, route(r.path)]
+    rescue Net::GeminiBadRequest
+      [nil, ["59\r\n"]]
     end
 
     def build_response(route)
