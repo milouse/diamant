@@ -62,11 +62,14 @@ module Diamant
     end
 
     def route(path)
-      # Avoid answer code 50 for domain name only request
-      path = '/index.gmi' if path == ''
-      file_path = [@public_path, path]
-      file_path << 'index.gmi' if path.end_with?('/')
-      route = file_path.join
+      # In any case, remove the / prefix
+      route = File.expand_path path.delete_prefix('/'), Dir.pwd
+      # We better should use some sort of chroot...
+      unless route.start_with?(Dir.pwd)
+        @logger.warn "Bad attempt to get something out of public_dir: #{route}"
+        return ['51 Not found!']
+      end
+      route << '/index.gmi' if File.directory?(route)
       return ['51 Not found!'] unless File.exist?(route)
       build_response route
     end
@@ -94,13 +97,14 @@ module Diamant
     end
 
     def init_server_paths(opts = {})
-      @public_path = check_option_path_exist(
-        opts[:public_path], './public_gmi'
-      ).delete_suffix('/')
       cert_file = check_option_path_exist(opts[:cert], 'cert.pem')
       @cert = OpenSSL::X509::Certificate.new File.read(cert_file)
       key_file = check_option_path_exist(opts[:pkey], 'key.rsa')
       @pkey = OpenSSL::PKey::RSA.new File.read(key_file)
+      public_path = check_option_path_exist(
+        opts[:public_path], './public_gmi'
+      )
+      Dir.chdir(public_path)
     end
   end
 end
