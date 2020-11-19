@@ -79,6 +79,7 @@ module Diamant
     end
 
     def init_logger
+      $stdout.sync = true
       @logger = Logger.new($stdout)
       @logger.datetime_format = '%Y-%m-%d %H:%M:%S'
       @logger.formatter = proc do |severity, datetime, _, msg|
