@@ -24,7 +24,7 @@ module Diamant
     end
 
     def supported?
-      @extension == '' || MIMETYPES.has_key?(@extension)
+      @extension != '' && MIMETYPES.has_key?(@extension)
     end
 
     private
@@ -32,13 +32,8 @@ module Diamant
     def extract_info
       @extension = File.extname @path
       raise MimeError, "#{@path} format is not supported!" unless supported?
-      if @extension == ''
-        # Weird... but we'll try the simple way
-        @content_type = 'text/plain'
-      else
-        # Any other supported extension
-        @content_type = MIMETYPES[@extension]
-      end
+      # Any other supported extension
+      @content_type = MIMETYPES[@extension]
     end
   end
 end
