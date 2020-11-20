@@ -13,6 +13,7 @@ module Diamant
       '.txt' => 'text/plain',
       '.md' => 'text/markdown',
       '.org' => 'text/org',
+      '.xml' => 'application/xml',
       '.png' => 'image/png',
       '.jpg' => 'image/jpeg',
       '.jpeg' => 'image/jpeg',
