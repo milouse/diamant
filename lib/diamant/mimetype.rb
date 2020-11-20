@@ -8,6 +8,7 @@ module Diamant
     attr_reader :extension, :content_type
 
     MIMETYPES = {
+      '.gemini' => 'text/gemini',
       '.gmi' => 'text/gemini',
       '.txt' => 'text/plain',
       '.md' => 'text/markdown',
