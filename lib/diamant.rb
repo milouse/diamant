@@ -42,12 +42,15 @@ module Diamant
     def handle_client(client)
       begin
         r = Net::GeminiRequest.read_new(client)
+        answer = route(r.path)
+        uri = r.uri
       rescue Net::GeminiBadRequest
-        client.puts "59\r\n"
-        return
+        answer = ["59\r\n"]
+        uri = nil
       end
-      answer = route(r.path)
-      @logger.info "#{answer[0]} - #{r.uri}"
+      log_line = [client.peeraddr[3], answer[0]]
+      log_line << uri if uri
+      @logger.info log_line.join(' - ')
       answer.each do |line|
         client.puts "#{line}\r\n"
       end
