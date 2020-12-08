@@ -41,6 +41,14 @@ module Diamant
           handle_client(client)
           client.close
         end
+      rescue OpenSSL::SSL::SSLError => e
+        # Do not even try to answer anything as the socket cannot be
+        # built. This will abruptly interrupt the connection from a client
+        # point of view, which must deal with it. Only keep a trace for us.
+        @logger.error(
+          format('SSLError: %<cause>s',
+                 cause: e.message.sub(/.*state=error: (.+)\Z/, '\1'))
+        )
       rescue Interrupt
         break
       end
