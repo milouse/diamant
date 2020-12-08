@@ -26,6 +26,16 @@ module Diamant
     def start
       tcp_serv = TCPServer.new @bind, @port
       ssl_serv = OpenSSL::SSL::SSLServer.new tcp_serv, ssl_context
+      main_loop(ssl_serv)
+    ensure
+      ssl_serv&.shutdown
+    end
+
+    private
+
+    include Diamant::Response
+
+    def main_loop(ssl_serv)
       loop do
         Thread.new(ssl_serv.accept) do |client|
           handle_client(client)
@@ -34,13 +44,7 @@ module Diamant
       rescue Interrupt
         break
       end
-    ensure
-      ssl_serv&.shutdown
     end
-
-    private
-
-    include Diamant::Response
 
     def handle_client(client)
       current_load = Thread.list.length - 1
