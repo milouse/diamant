@@ -11,6 +11,7 @@ require 'uri/gemini'
 
 require 'diamant/version'
 require 'diamant/mimetype'
+require 'diamant/response'
 
 module Diamant
   # Runs the server request/answer loop.
@@ -25,34 +26,32 @@ module Diamant
     def start
       tcp_serv = TCPServer.new @bind, @port
       ssl_serv = OpenSSL::SSL::SSLServer.new tcp_serv, ssl_context
-      loop do
-        Thread.new(ssl_serv.accept) do |client|
-          handle_client(client)
-          client.close
-        end
-      rescue Interrupt
-        break
-      end
+      main_loop(ssl_serv)
     ensure
       ssl_serv&.shutdown
     end
 
     private
 
-    def reject_request?(sock, current_load)
-      # Accept only 10 thread with no restriction
-      return false if current_load < 11
-      # Seppuku
-      raise 'Server is under heavy load' if current_load > 1965
-      if current_load > 42
-        @logger.warn '41 - Too much threads...'
-        sock.puts "41 See you soon...\r\n"
-        return true
+    include Diamant::Response
+
+    def main_loop(ssl_serv)
+      loop do
+        Thread.new(ssl_serv.accept) do |client|
+          handle_client(client)
+          client.close
+        end
+      rescue OpenSSL::SSL::SSLError => e
+        # Do not even try to answer anything as the socket cannot be
+        # built. This will abruptly interrupt the connection from a client
+        # point of view, which must deal with it. Only keep a trace for us.
+        @logger.error(
+          format('SSLError: %<cause>s',
+                 cause: e.message.sub(/.*state=error: (.+)\Z/, '\1'))
+        )
+      rescue Interrupt
+        break
       end
-      # Please wait a little
-      @logger.warn '44 5 - Too much threads...'
-      sock.puts "44 5\r\n"
-      true
     end
 
     def handle_client(client)
@@ -65,34 +64,6 @@ module Diamant
       answer.each do |line|
         client.puts "#{line}\r\n"
       end
-    end
-
-    def read_file(client)
-      r = Net::GeminiRequest.read_new(client)
-      [r.uri, route(r.path)]
-    rescue Net::GeminiBadRequest
-      [nil, ["59\r\n"]]
-    end
-
-    def build_response(route)
-      info = Diamant::MimeType.new(route)
-      answer = IO.readlines route, chomp: true
-      answer.prepend "20 #{info.content_type}"
-    rescue Diamant::MimeError
-      ['50 Not a supported file!']
-    end
-
-    def route(path)
-      # In any case, remove the / prefix
-      route = File.expand_path path.delete_prefix('/'), Dir.pwd
-      # We better should use some sort of chroot...
-      unless route.start_with?(Dir.pwd)
-        @logger.warn "Bad attempt to get something out of public_dir: #{route}"
-        return ['51 Not found!']
-      end
-      route << '/index.gmi' if File.directory?(route)
-      return ['51 Not found!'] unless File.exist?(route)
-      build_response route
     end
 
     def ssl_context
