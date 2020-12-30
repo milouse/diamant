@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Diamant::VERSION
   s.summary     = 'A simple Gemini server for static files.'
   s.description = <<~DESC
-    Diamant is a server for the Gemini network protocol. it
-    can only serve static files. Internally, it uses the OpenSSL library to
-    handle the TLS sessions, and threads to handle concurrent requests.
+    Diamant is a server for the Gemini network protocol. It can only serve
+    static files. Internally, it uses the OpenSSL library to handle the TLS
+    sessions, and threads to handle concurrent requests.
   DESC
   s.authors     = ['Étienne Deparis']
   s.email       = 'etienne@depar.is'
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.license     = 'WTFPL'
 
   s.required_ruby_version = '>= 2.7'
-  s.add_runtime_dependency 'ruby-net-text', '~> 0.0.3'
+  s.add_runtime_dependency 'ruby-net-text', '~> 0.0.4'
 
   s.add_development_dependency 'byebug', '~> 11.1'
   s.add_development_dependency 'pry', '~> 0.13'

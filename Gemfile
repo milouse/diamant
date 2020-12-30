@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 ruby '>= 2.7'
 
-gem 'ruby-net-text', '~> 0.0.3'
+gem 'ruby-net-text', '~> 0.0.4'
 
 group :development do
   gem 'byebug', '~> 11.1'
