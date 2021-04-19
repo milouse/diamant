@@ -25,15 +25,15 @@ Gem::Specification.new do |s|
   s.license     = 'WTFPL'
 
   s.required_ruby_version = '>= 2.7'
-  s.add_runtime_dependency 'ruby-net-text', '~> 0.0.4'
+  s.add_runtime_dependency 'ruby-net-text', '~> 0.0.5'
 
   s.add_development_dependency 'byebug', '~> 11.1'
-  s.add_development_dependency 'pry', '~> 0.13'
+  s.add_development_dependency 'pry', '~> 0.14'
   s.add_development_dependency 'pry-doc', '~> 1.1'
-  s.add_development_dependency 'rspec', '~> 3.9'
-  s.add_development_dependency 'rubocop', '~> 1.3'
-  s.add_development_dependency 'rubocop-performance', '~> 1.9'
-  s.add_development_dependency 'rubocop-rspec', '~> 2.0'
-  s.add_development_dependency 'simplecov', '~> 0.19'
+  s.add_development_dependency 'rspec', '~> 3.10'
+  s.add_development_dependency 'rubocop', '~> 1.12'
+  s.add_development_dependency 'rubocop-performance', '~> 1.10'
+  s.add_development_dependency 'rubocop-rspec', '~> 2.2'
+  s.add_development_dependency 'simplecov', '~> 0.21'
   s.add_development_dependency 'yard', '~> 0.9'
 end
