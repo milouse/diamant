@@ -12,21 +12,13 @@ has very few features, and can only serve static files.
 Internally, it uses the OpenSSL library to handle the TLS sessions, and the
 Ruby ~Thread~ implementation to handle concurrent requests.
 
+* About the name
+
 It is named « Diamant », as one of the first french attempt to build a
 rocket. The first Diamant launch happen in 1965, exactly like Gemini. I think
 it’s cool.
 
 [[https://en.wikipedia.org/wiki/Diamant][About the Diamant rocket program on Wikipedia]]
-
-I’m already aware another Ruby implementation exists, named Gack. However,
-Diamant differs from it for two reasons:
-
-- it directly support TLS. There is no need to put it behind a reverse proxy,
-  it works directly, as soon as you’ve opened the port 1965 on your firewall.
-- it will only serves static content from a given repository, when Gack is
-  mork like a framework to build custom application (it is named after Rack).
-
-[[https://github.com/rawburt/gack][Gack on github]]
 
 * Installation and setup
 
