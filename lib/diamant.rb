@@ -49,6 +49,8 @@ module Diamant
           format('SSLError: %<cause>s',
                  cause: e.message.sub(/.*state=error: (.+)\Z/, '\1'))
         )
+      rescue Errno::ECONNRESET
+        @logger.error('Connection reset by peer', e)
       rescue Interrupt
         break
       end
