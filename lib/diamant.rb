@@ -50,7 +50,7 @@ module Diamant
                  cause: e.message.sub(/.*state=error: (.+)\Z/, '\1'))
         )
       rescue Errno::ECONNRESET
-        @logger.error('Connection reset by peer', e)
+        @logger.error('Connection reset by peer')
       rescue Interrupt
         break
       end
