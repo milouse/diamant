@@ -39,6 +39,9 @@ module Diamant
       loop do
         Thread.new(ssl_serv.accept) do |client|
           handle_client(client)
+        rescue Errno::ECONNRESET, Errno::ENOTCONN => e
+          @logger.error(e.message)
+        ensure
           client.close
         end
       rescue OpenSSL::SSL::SSLError => e
