@@ -59,6 +59,7 @@ module Diamant
     def handle_client(client)
       current_load = Thread.list.length - 1
       return if reject_request?(client, current_load)
+
       uri, answer = read_file(client)
       log_line = [current_load, client.peeraddr[3], answer[0]]
       log_line << uri if uri
@@ -87,6 +88,7 @@ module Diamant
     def check_option_path_exist(option, default)
       path = File.expand_path(option || default)
       return path if File.exist?(path)
+
       raise ArgumentError, "#{path} does not exist!"
     end
 

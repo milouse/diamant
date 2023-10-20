@@ -1,5 +1,4 @@
-.ruby-gemset
-.ruby-version
+.ruby-*
 cert.pem
 key.rsa
 diamant-*.gem
