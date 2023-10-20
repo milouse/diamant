@@ -27,7 +27,8 @@ module Diamant
     def read_file(client)
       r = Net::Gemini::Request.read_new(client)
       [r.uri, route(r.path)]
-    rescue Net::Gemini::BadRequest, URI::InvalidURIError
+    rescue Net::Gemini::BadRequest, URI::InvalidURIError => e
+      @logger.error "59 - #{e}"
       [nil, ["59\r\n"]]
     end
 
