@@ -6,9 +6,6 @@ require 'English'
 require 'openssl'
 require 'fileutils'
 
-require 'net/gemini/request'
-require 'uri/gemini'
-
 require 'diamant/version'
 require 'diamant/mimetype'
 require 'diamant/response'

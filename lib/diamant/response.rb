@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'net/gemini/request'
+require 'uri/gemini'
+
 module Diamant
   # Methods to generate requests responses
   module Response
@@ -22,9 +25,9 @@ module Diamant
     end
 
     def read_file(client)
-      r = Net::GeminiRequest.read_new(client)
+      r = Net::Gemini::Request.read_new(client)
       [r.uri, route(r.path)]
-    rescue Net::GeminiBadRequest, URI::InvalidURIError
+    rescue Net::Gemini::BadRequest, URI::InvalidURIError
       [nil, ["59\r\n"]]
     end
 
