@@ -34,6 +34,7 @@ module Diamant
     def extract_info
       @extension = File.extname @path
       raise MimeError, "#{@path} format is not supported!" unless supported?
+
       # Any other supported extension
       @content_type = MIMETYPES[@extension]
     end

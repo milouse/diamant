@@ -34,13 +34,7 @@ module Diamant
 
     def main_loop(ssl_serv)
       loop do
-        Thread.new(ssl_serv.accept) do |client|
-          handle_client(client)
-        rescue Errno::ECONNRESET, Errno::ENOTCONN => e
-          @logger.error(e.message)
-        ensure
-          client.close
-        end
+        main_loop_tick ssl_serv.accept
       rescue OpenSSL::SSL::SSLError => e
         # Do not even try to answer anything as the socket cannot be
         # built. This will abruptly interrupt the connection from a client
@@ -53,6 +47,17 @@ module Diamant
         @logger.error('Connection reset by peer')
       rescue Interrupt
         break
+      end
+    end
+
+    # Might raises some errors
+    def main_loop_tick(connection)
+      Thread.new(connection) do |client|
+        handle_client(client)
+      rescue Errno::ECONNRESET, Errno::ENOTCONN => e
+        @logger.error(e.message)
+      ensure
+        client.close
       end
     end
 

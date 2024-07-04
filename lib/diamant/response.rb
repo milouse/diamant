@@ -13,6 +13,7 @@ module Diamant
       return false if current_load < 11
       # Seppuku
       raise 'Server is under heavy load' if current_load > 1965
+
       if current_load > 42
         @logger.warn '41 - Too much threads...'
         sock.puts "41 See you soon...\r\n"
@@ -42,12 +43,13 @@ module Diamant
       end
       route << '/index.gmi' if File.directory?(route)
       return ['51 Not found!'] unless File.exist?(route)
+
       build_response route
     end
 
     def build_response(route)
       info = Diamant::MimeType.new(route)
-      answer = IO.readlines route, chomp: true
+      answer = File.readlines route, chomp: true
       answer.prepend "20 #{info.content_type}"
     rescue Diamant::MimeError
       ['50 Not a supported file!']

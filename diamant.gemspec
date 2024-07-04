@@ -33,5 +33,5 @@ Gem::Specification.new do |spec|
   spec.license     = 'WTFPL'
 
   spec.required_ruby_version = '>= 2.7'
-  spec.add_runtime_dependency 'ruby-net-text', '~> 0.1'
+  spec.add_dependency 'ruby-net-text', '~> 0.1'
 end
