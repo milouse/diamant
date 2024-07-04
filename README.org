@@ -15,21 +15,21 @@ Ruby ~Thread~ implementation to handle concurrent requests.
 #+html: <a href="https://liberapay.com/milouse/donate"><img alt="Support using Liberapay" src="https://img.shields.io/badge/Liberapay-Support_me-yellow?logo=liberapay"/></a>
 #+html: <a href="https://paypal.me/milouse"><img alt="Support using Paypal" src="https://img.shields.io/badge/Paypal-Support_me-00457C?logo=paypal&labelColor=lightgray"/></a>
 
-If you like my work, you can help me a lot by giving me some tip, either
+If you like my work, you can help me a lot by giving me a tip, either
 through [[https://liberapay.com/milouse][Liberapay]] or [[https://paypal.me/milouse][Paypal]]. Thank you very much!
 
 * About the name
 
-It is named « Diamant », as one of the first french attempt to build a
-rocket. The first Diamant launch happen in 1965, exactly like Gemini. I think
-it’s cool.
+It is named « Diamant », in reference to one of the first French attempts to build a
+rocket. The first Diamant launch happened in 1965, exactly like Gemini. I think
+it's cool.
 
 [[https://en.wikipedia.org/wiki/Diamant][About the Diamant rocket program on Wikipedia]]
 
 * Installation and setup
 
 Diamant is a [[https://rubygems.org/gems/diamant][Ruby gem]]. You need a working Ruby environment to use it. We
-recommand you to use [[https://rvm.io][RVM]] and a specific gemset. However it will works with a
+recommand you to use [[https://rvm.io][RVM]] and a specific gemset. However, it will work with a
 global ruby installation too.
 
 #+caption: Installation procedure with RVM
@@ -39,11 +39,11 @@ global ruby installation too.
   gem install diamant
 #+end_src
 
-Then you need to a generate self-signed TLS certificate and private key. In
+Then you need to generate a self-signed TLS certificate and private key. In
 the following example, remember to replace the example hostname
-~myhostname.com~ by the one you would like to use.
+~myhostname.com~ with the one you would like to use.
 
-Diamant provides a tool to create these certificate and key:
+Diamant provides a tool to create these certificates and keys:
 
 #+caption: TLS certificate and private key creation with Diamant
 #+begin_src shell
@@ -70,7 +70,7 @@ Finally, you should create a folder to store your static files to serve:
 
 ** Basic way
 
-With all the default options, runing the server is as simple as:
+With all the default options, running the server is as simple as:
 
 #+caption: Running Diamant with default options
 #+begin_src shell
@@ -93,7 +93,7 @@ To see all possible options, just enter the following command:
 
 ** As a systemd service
 
-You can inspire yourself from the following service example file:
+You can take inspiration from the following service example file:
 
 #+caption: systemd service file example for Diamant
 #+begin_src conf
@@ -118,6 +118,6 @@ You can inspire yourself from the following service example file:
 
 * Sources
 
-Development occurs on my own git repositoy:
+Development occurs on my own git repository:
 
 [[https://git.umaneti.net/diamant/][diamant gemini server git repository]]
