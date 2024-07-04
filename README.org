@@ -81,7 +81,7 @@ However, you may want to use some other options:
 
 #+caption: Running Diamant with some other options
 #+begin_src shell
-  diamant --public-path ~/my_gemini_site -b 0.0.0.0
+  diamant serve ~/my_gemini_site -b 0.0.0.0
 #+end_src
 
 To see all possible options, just enter the following command:
