@@ -54,7 +54,7 @@ module Diamant
     def main_loop_tick(connection)
       Thread.new(connection) do |client|
         handle_client(client)
-      rescue Errno::ECONNRESET, Errno::ENOTCONN => e
+      rescue Errno::ECONNRESET, Errno::ENOTCONN, Errno::ETIMEDOUT => e
         @logger.error(e.message)
       ensure
         client.close
