@@ -23,15 +23,15 @@ module Diamant
     end
 
     def write
-      IO.write('key.rsa', @key.to_pem)
+      File.write('key.rsa', @key.to_pem)
       File.chmod(0o400, 'key.rsa')
-      IO.write('cert.pem', @cert.to_pem)
+      File.write('cert.pem', @cert.to_pem)
       File.chmod(0o644, 'cert.pem')
     end
 
     private
 
-    def init_cert
+    def init_cert # rubocop:disable Metrics/AbcSize
       @cert = OpenSSL::X509::Certificate.new
       @cert.version = 3
       @cert.serial = 0x0
@@ -40,7 +40,7 @@ module Diamant
       @cert.public_key = @key.public_key
       @cert.not_before = Time.now
       # 1 years validity
-      @cert.not_after = @cert.not_before + 1 * 365 * 24 * 60 * 60
+      @cert.not_after = @cert.not_before + (1 * 365 * 24 * 60 * 60)
       @cert
     end
 
