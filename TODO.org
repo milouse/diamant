@@ -1,0 +1,11 @@
+#+title: Diamant Backlog
+#+language: en
+
+* TODO Add a config file
+
+- Should support all command line switches
+- Support more mime/type?
+
+* TODO Add support for some specific routes
+
+[[./README.org][Back]]
