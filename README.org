@@ -121,3 +121,15 @@ You can take inspiration from the following service example file:
 Development occurs on my own git repository:
 
 [[https://git.umaneti.net/diamant/][diamant gemini server git repository]]
+
+* See also
+
+Be aware that another ruby implementation exists, named Gack. Diamant differs
+from it for two reasons:
+
+- it directly support TLS. There is no need to put it behind a reverse proxy,
+  just run it (even as a simple user, as the 1965 port is not a protected one).
+- it will only serve static content from a given repository, when Gack is more
+  like an application framework (it is named after Rack).
+
+[[https://github.com/rawburt/gack][Gack on github]]
