@@ -3,14 +3,14 @@
 #+author: Étienne Deparis
 #+language: en
 
-Diamant is a server for the Gemini network protocol, built in Ruby. Diamant
+Diamant is a server for the Gemini network protocol, built in ruby. Diamant
 has very few features, and can only serve static files.
 
 [[gemini://gemini.circumlunar.space/][About the gemini protocol]]
 [[https://gemini.circumlunar.space/][About the gemini protocol]]
 
 Internally, it uses the OpenSSL library to handle the TLS sessions, and the
-Ruby ~Thread~ implementation to handle concurrent requests.
+ruby ~Thread~ implementation to handle concurrent requests.
 
 #+html: <a href="https://liberapay.com/milouse/donate"><img alt="Support using Liberapay" src="https://img.shields.io/badge/Liberapay-Support_me-yellow?logo=liberapay"/></a>
 #+html: <a href="https://paypal.me/milouse"><img alt="Support using Paypal" src="https://img.shields.io/badge/Paypal-Support_me-00457C?logo=paypal&labelColor=lightgray"/></a>
@@ -28,7 +28,7 @@ it's cool.
 
 * Installation and setup
 
-Diamant is a [[https://rubygems.org/gems/diamant][Ruby gem]]. You need a working Ruby environment to use it. We
+Diamant is a [[https://rubygems.org/gems/diamant][ruby gem]]. You need a working ruby environment to use it. We
 recommand you to use [[https://rvm.io][RVM]] and a specific gemset. However, it will work with a
 global ruby installation too.
 
