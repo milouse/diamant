@@ -120,7 +120,9 @@ You can take inspiration from the following service example file:
 
 Development occurs on my own git repository:
 
-[[https://git.umaneti.net/diamant/][diamant gemini server git repository]]
+[[https://git.umaneti.net/diamant/][Diamant gemini server git repository]]
+
+[[./TODO.org][Diamant current backlog]]
 
 * See also
 
