@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
     'lib/diamant.rb',
     'lib/diamant/version.rb',
     'lib/diamant/cert_generator.rb',
-    'lib/diamant/mimetype.rb',
+    'lib/diamant/mimefile.rb',
     'lib/diamant/response.rb',
     # Others
     'LICENSE'

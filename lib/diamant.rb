@@ -60,16 +60,14 @@ module Diamant
     end
 
     def handle_client(client)
-      current_load = Thread.list.length - 1
+      current_load = Thread.list.length - 1 # Exclude main thread
       return if reject_request?(client, current_load)
 
-      uri, answer = read_file(client)
+      uri, answer = build_response(client)
       log_line = [current_load, client.peeraddr[3], answer[0]]
       log_line << uri if uri
       @logger.info log_line.join(' - ')
-      answer.each do |line|
-        client.puts "#{line}\r\n"
-      end
+      client.puts answer
     end
 
     def ssl_context
