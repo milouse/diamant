@@ -13,7 +13,10 @@ module Diamant
       '.txt' => 'text/plain',
       '.md' => 'text/markdown',
       '.org' => 'text/org',
+      '.rss' => 'application/rss+xml',
+      '.atom' => 'application/atom+xml',
       '.xml' => 'application/xml',
+      '.svg' => 'image/svg+xml',
       '.bmp' => 'image/bmp',
       '.png' => 'image/png',
       '.jpg' => 'image/jpeg',
@@ -49,6 +52,9 @@ module Diamant
         @body[0..3] == 'RIFF' && @body[8..11] == 'WEBP'
       when 'image/bmp'
         @body[0..2] == 'BM'
+      when 'image/svg+xml', 'application/xml',
+           'application/rss+xml', 'application/atom+xml'
+        @body[0..5] == '<?xml '
       when 'audio/mpeg'
         @body[0..3] == 'ID3'
       when 'audio/ogg'
@@ -78,7 +84,6 @@ module Diamant
 
     def classify
       return unless @content_type
-      return :text if @content_type == 'application/xml'
 
       @content_type.split('/', 2).first.to_sym
     end
