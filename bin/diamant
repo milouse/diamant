@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'diamant'
-require 'diamant/cert_generator'
 require 'optparse'
+require_relative '../lib/diamant'
+require_relative '../lib/diamant/cert_generator'
 
 options = { hostname: '127.0.0.1', port: 1965 }
 OptionParser.new do |parser| # rubocop:disable Metrics/BlockLength

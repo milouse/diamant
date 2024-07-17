@@ -3,6 +3,8 @@
 require 'net/gemini/request'
 require 'uri/gemini'
 
+require_relative 'mimetype'
+
 module Diamant
   # Methods to generate requests responses
   module Response

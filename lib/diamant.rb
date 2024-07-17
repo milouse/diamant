@@ -6,9 +6,7 @@ require 'English'
 require 'openssl'
 require 'fileutils'
 
-require 'diamant/version'
-require 'diamant/mimetype'
-require 'diamant/response'
+require_relative 'diamant/response'
 
 module Diamant
   # Runs the server request/answer loop.
